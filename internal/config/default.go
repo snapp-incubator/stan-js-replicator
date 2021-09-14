@@ -39,5 +39,7 @@ func Default() Config {
 		NATS: cmq.Config{
 			URL: "nats://127.0.0.1:4222",
 		},
+		Channel: "koochooloo",
+		Topics:  []string{"k1", "k2"},
 	}
 }
