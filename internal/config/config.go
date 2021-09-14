@@ -25,6 +25,8 @@ type (
 		Logger    logger.Config    `koanf:"logger"`
 		Telemetry telemetry.Config `koanf:"telemetry"`
 		NATS      cmq.Config       `koanf:"nats"`
+		Channel   string           `koanf:"channel"`
+		Topics    []string         `koanf:"topics"`
 	}
 )
 
