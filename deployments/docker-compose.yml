@@ -10,6 +10,8 @@ services:
 
   nats-streaming:
     image: nats-streaming
+    ports:
+      - 4222:4223
     command:
       - --cluster_id
       - snapp

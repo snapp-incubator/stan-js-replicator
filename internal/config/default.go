@@ -3,6 +3,7 @@ package config
 import (
 	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
 	"github.com/snapp-incubator/stan-js-replicator/internal/logger"
+	"github.com/snapp-incubator/stan-js-replicator/internal/streaming"
 	telemetry "github.com/snapp-incubator/stan-js-replicator/internal/telemetry/config"
 )
 
@@ -38,6 +39,10 @@ func Default() Config {
 		},
 		NATS: cmq.Config{
 			URL: "nats://127.0.0.1:4222",
+		},
+		Streaming: streaming.Config{
+			URL:       "nats://127.0.0.1:4223",
+			ClusterID: "snapp",
 		},
 		Channel: "koochooloo",
 		Topics:  []string{"k1", "k2"},
