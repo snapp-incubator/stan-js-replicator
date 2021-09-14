@@ -1,0 +1,29 @@
+---
+version: '3'
+services:
+  nats:
+    image: nats
+    entrypoint: /nats-server
+    command: --name n1 --cluster_name raha --js --sd /data -p 4222
+    ports:
+      - 4222:4222
+
+  nats-streaming:
+    image: nats-streaming
+    command:
+      - --cluster_id
+      - snapp
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - 6831:6831/udp
+      - 16686:16686
+      - 14268:14268
+
+  pyroscope:
+    image: pyroscope/pyroscope
+    ports:
+      - 4040:4040
+    command:
+      - server
