@@ -15,6 +15,7 @@ type CMQ struct {
 	Logger *zap.Logger
 }
 
+// New creates a new connection to nats cluster with jetstream support.
 func New(cfg Config, logger *zap.Logger) (*CMQ, error) {
 	nc, err := nats.Connect(cfg.URL)
 	if err != nil {
