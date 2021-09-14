@@ -11,6 +11,7 @@ import (
 	"github.com/knadh/koanf/providers/structs"
 	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
 	"github.com/snapp-incubator/stan-js-replicator/internal/logger"
+	"github.com/snapp-incubator/stan-js-replicator/internal/streaming"
 	telemetry "github.com/snapp-incubator/stan-js-replicator/internal/telemetry/config"
 )
 
@@ -25,6 +26,7 @@ type (
 		Logger    logger.Config    `koanf:"logger"`
 		Telemetry telemetry.Config `koanf:"telemetry"`
 		NATS      cmq.Config       `koanf:"nats"`
+		Streaming streaming.Config `koanf:"streaming"`
 		Channel   string           `koanf:"channel"`
 		Topics    []string         `koanf:"topics"`
 	}
