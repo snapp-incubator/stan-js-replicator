@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -11,5 +12,8 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "sjr.fullname" . }}:{{ .Values.service.port }}']
+      args:
+        - '-O'
+        - '-'
+        - '{{ include "sjr.fullname" . }}:8080/metrics'
   restartPolicy: Never
