@@ -1,0 +1,6 @@
+Welcome the nats streaming/jetstream replicator.
+The setup replicates the following topics from the streaming side.
+
+{{ range $name := .Values.topics }}
+  - {{ $name }}
+{{ end }}
