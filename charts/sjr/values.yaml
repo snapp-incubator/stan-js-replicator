@@ -70,8 +70,8 @@ telemetry:
     enabled: "false"
     address: "http://127.0.0.1:4040"
 
-subject: hello
+channel: koochooloo
 
 topics:
-  - hello.1
-  - hello.2
+  - k.1
+  - k.2
