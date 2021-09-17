@@ -7,9 +7,9 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - port: 8080
+      targetPort: monitor
       protocol: TCP
-      name: http
+      name: monitor
   selector:
     {{- include "sjr.selectorLabels" . | nindent 4 }}
