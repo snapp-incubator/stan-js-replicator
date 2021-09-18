@@ -1,6 +1,10 @@
 package serve
 
 import (
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
 	"github.com/snapp-incubator/stan-js-replicator/internal/config"
 	"github.com/snapp-incubator/stan-js-replicator/internal/pipe"
@@ -36,6 +40,10 @@ func main(cfg config.Config, logger *zap.Logger, tracer trace.Tracer) {
 	for _, topic := range cfg.Topics {
 		go p.Pipe(topic)
 	}
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
 }
 
 // Register server command.
