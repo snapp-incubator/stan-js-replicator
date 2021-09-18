@@ -39,6 +39,8 @@ func New(c *cmq.CMQ, s *streaming.Streaming, logger *zap.Logger, tracer trace.Tr
 // its subscription on streaming isn't durable and it always start from 1 second behind.
 // the reason here is to reduce load on the streaming server as much as possible.
 func (p *Pipe) Pipe(topic string) {
+	piped := NewPiped(topic)
+
 	if _, err := p.Streaming.Conn.QueueSubscribe(topic, p.Streaming.Group, func(imsg *stan.Msg) {
 		defer func() {
 			_ = imsg.Ack()
@@ -56,11 +58,13 @@ func (p *Pipe) Pipe(topic string) {
 		otel.GetTextMapPropagator().Inject(ctx, propagation.HeaderCarrier(omsg.Header))
 
 		if _, err := p.CMQ.JConn.PublishMsg(omsg); err != nil {
+			piped.FailedMessages.Inc()
 			span.RecordError(err)
-			p.Logger.Error("stan subscription failed", zap.Error(err))
+			p.Logger.Error("jetstream publish failed", zap.Error(err))
 		}
 
 		span.End()
+		piped.PipedMessages.Inc()
 	}, stan.StartAtTimeDelta(time.Second), stan.SetManualAckMode()); err != nil {
 		p.Logger.Fatal("stan subscription failed", zap.Error(err))
 	}
