@@ -39,12 +39,22 @@ spec:
             httpGet:
               path: /metrics
               port: monitor
+          volumeMounts:
+            - name: configuration
+              mountPath: "/app/config.yml"
+              subPath: "config.yaml"
+              readOnly: true
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: configuration
+          configMap:
+            defaultMode: 0440
+            name: {{ include "sjr.fullname" . }}
       {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
