@@ -1,5 +1,5 @@
 Welcome the nats streaming/jetstream replicator.
-The setup replicates the following topics from the streaming side on {{ .Values.channel }}.
+The setup replicates the following topics from the streaming side to {{ .Values.channel }} jetstream channel.
 
 {{ range $name := .Values.topics }}
   - {{ $name }}
