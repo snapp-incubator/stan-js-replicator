@@ -39,7 +39,7 @@ func New(c *cmq.CMQ, s *streaming.Streaming, logger *zap.Logger, tracer trace.Tr
 // its subscription on streaming isn't durable and it always start from 1 second behind.
 // the reason here is to reduce load on the streaming server as much as possible.
 func (p *Pipe) Pipe(topic string) {
-	if _, err := p.Streaming.Conn.Subscribe(topic, func(imsg *stan.Msg) {
+	if _, err := p.Streaming.Conn.QueueSubscribe(topic, p.Streaming.Group, func(imsg *stan.Msg) {
 		defer func() {
 			_ = imsg.Ack()
 		}()
