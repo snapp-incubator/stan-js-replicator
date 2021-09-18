@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/snapp-incubator/stan-js-replicator/internal/cmd/serve"
 	"github.com/snapp-incubator/stan-js-replicator/internal/config"
 	"github.com/snapp-incubator/stan-js-replicator/internal/logger"
 	"github.com/snapp-incubator/stan-js-replicator/internal/telemetry/trace"
@@ -20,13 +21,15 @@ func Execute() {
 
 	logger := logger.New(cfg.Logger)
 
-	_ = trace.New(cfg.Telemetry.Trace)
+	tracer := trace.New(cfg.Telemetry.Trace)
 
 	// nolint: exhaustivestruct
 	root := &cobra.Command{
 		Use:   "sjr",
 		Short: "replicate streaming messages on jetstream",
 	}
+
+	serve.Register(root, cfg, logger, tracer)
 
 	if err := root.Execute(); err != nil {
 		logger.Error("failed to execute root command", zap.Error(err))
