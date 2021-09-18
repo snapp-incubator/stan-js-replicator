@@ -10,7 +10,7 @@ metadata:
     {{- include "sjr.labels" . | nindent 4 }}
 spec:
   endpoints:
-  - port: monitoring
+  - port: monitor
     {{- if .Values.serviceMonitor.interval }}
     interval: {{ .Values.serviceMonitor.interval }}
     {{- end }}
