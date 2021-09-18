@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   sjr:
   - apiVersion: v2
+    appVersion: 0.4.0
+    created: "2021-09-18T09:39:08.104017232Z"
+    description: replicate messages from streaming channel to jetstream
+    digest: f1b4abe865cb81157afdd0f0057636599912546cbaadea03112ef35e30cff530
+    name: sjr
+    type: application
+    urls:
+    - https://github.com/snapp-incubator/stan-js-replicator/releases/download/sjr-0.4.0/sjr-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: 0.2.0
     created: "2021-09-18T09:05:56.157804374Z"
     description: replicate messages from streaming channel to jetstream
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/snapp-incubator/stan-js-replicator/releases/download/sjr-0.1.0/sjr-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-18T09:05:56.157846574Z"
+generated: "2021-09-18T09:39:08.104029532Z"
