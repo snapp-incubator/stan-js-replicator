@@ -45,6 +45,9 @@ tolerations: []
 
 affinity: {}
 
+serviceMonitor:
+  enabled: true
+
 logger:
   level: "debug"
   syslog:
