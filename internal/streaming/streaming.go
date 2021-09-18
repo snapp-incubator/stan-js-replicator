@@ -14,6 +14,7 @@ const ClientIDLen = 15
 type Streaming struct {
 	Conn   stan.Conn
 	Logger *zap.Logger
+	Group  string
 }
 
 // New creates a new connection to nats cluster with streaming support.
@@ -40,5 +41,6 @@ func New(cfg Config, logger *zap.Logger) (*Streaming, error) {
 	return &Streaming{
 		Conn:   nc,
 		Logger: logger,
+		Group:  cfg.Group,
 	}, nil
 }
