@@ -41,6 +41,7 @@ func Default() Config {
 			URL: "nats://127.0.0.1:4222",
 		},
 		Streaming: streaming.Config{
+			Group:     "sjr",
 			URL:       "nats://127.0.0.1:4223",
 			ClusterID: "snapp",
 		},
