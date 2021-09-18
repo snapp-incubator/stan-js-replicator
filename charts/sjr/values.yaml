@@ -59,6 +59,7 @@ nats:
 streaming:
   url: "nats://nats:4222"
   clusterid: "snapp"
+  group: "sjr"
 
 telemetry:
   trace:
