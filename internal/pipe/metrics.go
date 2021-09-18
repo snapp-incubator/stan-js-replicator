@@ -37,7 +37,7 @@ func NewPiped(name string) Piped {
 
 	failed := prometheus.NewCounter(prometheus.CounterOpts{
 		Namespace: "sjr",
-		Name:      "piped_total",
+		Name:      "failed_total",
 		Help:      "total number of failed messages",
 		Subsystem: "pipe",
 		ConstLabels: prometheus.Labels{
