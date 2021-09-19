@@ -5,6 +5,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/nats-io/nats.go"
 	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
 	"github.com/snapp-incubator/stan-js-replicator/internal/config"
 	"github.com/snapp-incubator/stan-js-replicator/internal/pipe"
@@ -26,7 +27,16 @@ func main(cfg config.Config, logger *zap.Logger, tracer trace.Tracer) {
 		logger.Fatal("nats initiation failed", zap.Error(err))
 	}
 
-	if err := c.Stream(cfg.Channel, cfg.Topics); err != nil {
+	// nolint: exhaustivestruct
+	sc := &nats.StreamConfig{
+		Name:     cfg.Channel,
+		Subjects: cfg.Topics,
+		Replicas: cfg.Stream.Replicas,
+		Storage:  cfg.Stream.StorageType,
+		MaxAge:   cfg.Stream.MaxAge,
+	}
+
+	if err := c.Stream(sc); err != nil {
 		logger.Fatal("nats stream creation failed", zap.Error(err))
 	}
 
