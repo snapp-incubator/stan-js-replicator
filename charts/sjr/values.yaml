@@ -79,3 +79,8 @@ channel: koochooloo
 topics:
   - k.1
   - k.2
+
+stream:
+  maxage: 1h
+  replicas: 1
+  storagetype: 1

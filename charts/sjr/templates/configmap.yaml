@@ -33,3 +33,7 @@ data:
         - {{ $name }}
       {{ end }}
     {{ end }}
+    {{ with .Values.stream }}
+    stream:
+      {{ toYaml . | nindent 6 }}
+    {{ end }}
