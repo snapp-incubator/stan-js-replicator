@@ -3,12 +3,14 @@ package config
 import (
 	"log"
 	"strings"
+	"time"
 
 	"github.com/knadh/koanf"
 	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/env"
 	"github.com/knadh/koanf/providers/file"
 	"github.com/knadh/koanf/providers/structs"
+	"github.com/nats-io/nats.go"
 	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
 	"github.com/snapp-incubator/stan-js-replicator/internal/logger"
 	"github.com/snapp-incubator/stan-js-replicator/internal/streaming"
@@ -27,8 +29,17 @@ type (
 		Telemetry telemetry.Config `koanf:"telemetry"`
 		NATS      cmq.Config       `koanf:"nats"`
 		Streaming streaming.Config `koanf:"streaming"`
+		Stream    Stream           `koanf:"stream"`
 		Channel   string           `koanf:"channel"`
 		Topics    []string         `koanf:"topics"`
+	}
+
+	// Stream holds all the stream configuration, please check it with
+	// https://pkg.go.dev/github.com/nats-io/nats.go#StreamConfig
+	Stream struct {
+		Replicas    int
+		MaxAge      time.Duration
+		StorageType nats.StorageType
 	}
 )
 
