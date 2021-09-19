@@ -1,0 +1,20 @@
+---
+monitoring:
+  enabled: true
+  address: ":8080"
+nats:
+  url: "nats://127.0.0.1:4222"
+logger:
+telemetry:
+streaming:
+  url: "nats://127.0.0.1:4222"
+  group: "sjr"
+  clientid: "snapp"
+channel: "koochooloo"
+topics:
+  - k.1
+  - k.2
+stream:
+  maxage: "1h"
+  storagetype: 1
+  replicas: 1
