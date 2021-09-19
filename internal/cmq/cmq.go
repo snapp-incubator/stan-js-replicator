@@ -3,7 +3,6 @@ package cmq
 import (
 	"errors"
 	"fmt"
-	"time"
 
 	"github.com/nats-io/nats.go"
 	"go.uber.org/zap"
@@ -46,18 +45,12 @@ func New(cfg Config, logger *zap.Logger) (*CMQ, error) {
 	}, nil
 }
 
-func (c *CMQ) Stream(name string, topics []string) error {
-	info, err := c.JConn.StreamInfo(name)
+func (c *CMQ) Stream(sc *nats.StreamConfig) error {
+	info, err := c.JConn.StreamInfo(sc.Name)
 
 	switch {
 	case errors.Is(err, nats.ErrStreamNotFound):
-		// nolint: exhaustivestruct
-		stream, err := c.JConn.AddStream(&nats.StreamConfig{
-			Name:     name,
-			Subjects: topics,
-			MaxAge:   1 * time.Hour,
-			Storage:  nats.MemoryStorage,
-		})
+		stream, err := c.JConn.AddStream(sc)
 		if err != nil {
 			return fmt.Errorf("cannot create stream %w", err)
 		}
