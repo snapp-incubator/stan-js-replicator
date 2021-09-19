@@ -1,6 +1,9 @@
 package config
 
 import (
+	"time"
+
+	"github.com/nats-io/nats.go"
 	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
 	"github.com/snapp-incubator/stan-js-replicator/internal/logger"
 	"github.com/snapp-incubator/stan-js-replicator/internal/streaming"
@@ -47,5 +50,10 @@ func Default() Config {
 		},
 		Channel: "koochooloo",
 		Topics:  []string{"k1", "k2"},
+		Stream: Stream{
+			MaxAge:      1 * time.Hour,
+			StorageType: nats.MemoryStorage,
+			Replicas:    1,
+		},
 	}
 }
