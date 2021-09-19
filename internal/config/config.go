@@ -37,9 +37,9 @@ type (
 	// Stream holds all the stream configuration, please check it with
 	// https://pkg.go.dev/github.com/nats-io/nats.go#StreamConfig
 	Stream struct {
-		Replicas    int
-		MaxAge      time.Duration
-		StorageType nats.StorageType
+		Replicas    int              `koanf:"replicas"`
+		MaxAge      time.Duration    `koanf:"maxage"`
+		StorageType nats.StorageType `koanf:"storagetype"`
 	}
 )
 
