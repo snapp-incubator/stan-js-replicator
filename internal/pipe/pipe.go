@@ -46,6 +46,8 @@ func (p *Pipe) Pipe(topic string) {
 			_ = imsg.Ack()
 		}()
 
+		piped.TimeLag.Observe(time.Since(time.Unix(imsg.Timestamp, 0)).Seconds())
+
 		ctx := context.Background()
 
 		ctx, span := p.Tracer.Start(ctx, fmt.Sprintf("pipe.%s.replicate", topic), trace.WithSpanKind(trace.SpanKindProducer))
