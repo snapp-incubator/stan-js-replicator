@@ -76,7 +76,7 @@ func NewPiped(name string) Piped {
 		if ok := errors.As(err, &are); ok {
 			lag, ok = are.ExistingCollector.(prometheus.Histogram)
 			if !ok {
-				panic("lag must be a counter")
+				panic("lag must be a histogram")
 			}
 		} else {
 			panic(err)
