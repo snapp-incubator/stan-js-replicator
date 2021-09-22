@@ -46,7 +46,7 @@ func (p *Pipe) Pipe(topic string) {
 			_ = imsg.Ack()
 		}()
 
-		piped.TimeLag.Observe(time.Since(time.Unix(imsg.Timestamp, 0)).Seconds())
+		piped.TimeLag.Observe(time.Since(time.Unix(imsg.Timestamp, 0).Local()).Seconds())
 
 		ctx := context.Background()
 
