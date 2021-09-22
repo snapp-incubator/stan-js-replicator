@@ -1,6 +1,7 @@
 # NATS Streaming/Jetstream Replicator [SJR]
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/snapp-incubator/stan-js-replicator/ci?label=ci&logo=github&style=flat-square)
+[![Codecov](https://img.shields.io/codecov/c/gh/snapp-incubator/stan-js-replicator?logo=codecov&style=flat-square)](https://codecov.io/gh/snapp-incubator/stan-js-replicator)
 
 ## Introduction
 
