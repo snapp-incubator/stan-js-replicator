@@ -49,7 +49,7 @@ serviceMonitor:
   enabled: false
 
 logger:
-  level: "debug"
+  level: "info"
   syslog:
     enabled: "false"
     network: "tcp"
