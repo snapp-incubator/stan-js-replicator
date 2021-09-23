@@ -28,8 +28,8 @@ monitoring:
   address: ":8080"
 nats:
   url: "nats://127.0.0.1:4222"
-logger:
-telemetry:
+logger: {}
+telemetry: {}
 streaming:
   url: "nats://127.0.0.1:4222"
   group: "sjr"
