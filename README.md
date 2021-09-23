@@ -43,3 +43,18 @@ stream:
   storagetype: 1
   replicas: 1
 ```
+
+## [Pyroscope](https://pyroscope.io/)
+
+sjr has buitin support for pyroscope and you can use by enabling it throuth the following configuration.
+
+```yaml
+telemetry:
+  profiler:
+    enabled: true
+    address: http://127.0.0.1:4040 
+```
+
+## Tracing with [OpneTelemetry](https://github.com/open-telemetry/opentelemetry-go)
+
+sjr inject its context into the jetstream messages. right now we don't support context extraction from streaming messages because there is no standard way to do that.
