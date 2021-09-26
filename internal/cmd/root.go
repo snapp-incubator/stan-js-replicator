@@ -3,10 +3,10 @@ package cmd
 import (
 	"os"
 
-	"github.com/snapp-incubator/stan-js-replicator/internal/cmd/serve"
-	"github.com/snapp-incubator/stan-js-replicator/internal/config"
-	"github.com/snapp-incubator/stan-js-replicator/internal/logger"
-	"github.com/snapp-incubator/stan-js-replicator/internal/telemetry/trace"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/cmd/serve"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/config"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/logger"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/telemetry/trace"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
