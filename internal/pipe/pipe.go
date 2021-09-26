@@ -7,8 +7,8 @@ import (
 
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/stan.go"
-	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
-	"github.com/snapp-incubator/stan-js-replicator/internal/streaming"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/cmq"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/streaming"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"

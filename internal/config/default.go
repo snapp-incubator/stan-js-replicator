@@ -4,10 +4,10 @@ import (
 	"time"
 
 	"github.com/nats-io/nats.go"
-	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
-	"github.com/snapp-incubator/stan-js-replicator/internal/logger"
-	"github.com/snapp-incubator/stan-js-replicator/internal/streaming"
-	telemetry "github.com/snapp-incubator/stan-js-replicator/internal/telemetry/config"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/cmq"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/logger"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/streaming"
+	telemetry "github.com/snapp-incubator/stan-js-replicator/v2/internal/telemetry/config"
 )
 
 // Default return default configuration.
