@@ -29,10 +29,10 @@ func (suite *PipeSuite) SetupSuite() {
 	cfg := config.New()
 	require := suite.Require()
 
-	stan, err := streaming.New(cfg.Streaming, zap.NewNop())
+	stan, err := streaming.New(cfg.Input.Streaming, zap.NewNop())
 	require.NoError(err)
 
-	js, err := cmq.New(cfg.NATS, zap.NewNop())
+	js, err := cmq.New(cfg.Output, zap.NewNop())
 	require.NoError(err)
 
 	suite.pipe = pipe.New(js, stan, zap.NewNop(), trace.NewNoopTracerProvider().Tracer(""))
