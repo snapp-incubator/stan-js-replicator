@@ -40,13 +40,19 @@ func Default() Config {
 				Enabled: true,
 			},
 		},
-		NATS: cmq.Config{
+		Output: cmq.Config{
 			URL: "nats://127.0.0.1:4222",
 		},
-		Streaming: streaming.Config{
-			Group:     "sjr",
-			URL:       "nats://127.0.0.1:4223",
-			ClusterID: "snapp",
+		Input: Input{
+			Type: StreamingInput,
+			Streaming: streaming.Config{
+				Group:     "sjr",
+				URL:       "nats://127.0.0.1:4223",
+				ClusterID: "snapp",
+			},
+			NATS: cmq.Config{
+				URL: "nats://127.0.0.1:4222",
+			},
 		},
 		Channel: "koochooloo",
 		Topics:  []string{"k1", "k2"},
