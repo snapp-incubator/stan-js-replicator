@@ -1,4 +1,4 @@
-module github.com/snapp-incubator/stan-js-replicator
+module github.com/snapp-incubator/stan-js-replicator/v2
 
 go 1.17
 
