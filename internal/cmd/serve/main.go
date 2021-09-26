@@ -22,7 +22,7 @@ func main(cfg config.Config, logger *zap.Logger, tracer trace.Tracer) {
 
 	metric.NewServer(cfg.Telemetry.Metric).Start(logger.Named("metrics"))
 
-	c, err := cmq.New(cfg.NATS, logger.Named("cmq"))
+	c, err := cmq.New(cfg.Output, logger.Named("cmq"))
 	if err != nil {
 		logger.Fatal("nats initiation failed", zap.Error(err))
 	}
@@ -40,7 +40,7 @@ func main(cfg config.Config, logger *zap.Logger, tracer trace.Tracer) {
 		logger.Fatal("nats stream creation failed", zap.Error(err))
 	}
 
-	str, err := streaming.New(cfg.Streaming, logger.Named("streaming"))
+	str, err := streaming.New(cfg.Input.Streaming, logger.Named("streaming"))
 	if err != nil {
 		logger.Fatal("nats streaming initiation failed", zap.Error(err))
 	}
