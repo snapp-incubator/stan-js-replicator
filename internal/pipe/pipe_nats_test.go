@@ -37,6 +37,7 @@ func (suite *PipeNATSSuite) SetupSuite() {
 	suite.js = js
 }
 
+// nolint: dupl
 func (suite *PipeNATSSuite) TestWithMessage() {
 	require := suite.Require()
 
