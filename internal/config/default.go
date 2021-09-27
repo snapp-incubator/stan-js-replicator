@@ -51,7 +51,7 @@ func Default() Config {
 				ClusterID: "snapp",
 			},
 			NATS: cmq.Config{
-				URL: "nats://127.0.0.1:4222",
+				URL: "nats://127.0.0.1:4224",
 			},
 		},
 		Channel: "koochooloo",
