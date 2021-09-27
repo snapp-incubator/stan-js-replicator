@@ -40,15 +40,29 @@ func main(cfg config.Config, logger *zap.Logger, tracer trace.Tracer) {
 		logger.Fatal("nats stream creation failed", zap.Error(err))
 	}
 
-	str, err := streaming.New(cfg.Input.Streaming, logger.Named("streaming"))
-	if err != nil {
-		logger.Fatal("nats streaming initiation failed", zap.Error(err))
+	var p pipe.Pipe
+
+	switch cfg.Input.Type {
+	case config.StreamingInput:
+		str, err := streaming.New(cfg.Input.Streaming, logger.Named("streaming"))
+		if err != nil {
+			logger.Fatal("nats streaming initiation failed", zap.Error(err))
+		}
+
+		p = pipe.NewSTAN(c, str, logger.Named("pipe"), tracer)
+	case config.NATSInput:
+		nats, err := cmq.New(cfg.Input.NATS, logger.Named("nats"))
+		if err != nil {
+			logger.Fatal("nats streaming initiation failed", zap.Error(err))
+		}
+
+		p = pipe.NewNATS(c, nats, logger.Named("pipe"), tracer)
+	default:
+		logger.Fatal("invalid input type", zap.String("input-type", string(cfg.Input.Type)))
 	}
 
-	p := pipe.New(c, str, logger.Named("pipe"), tracer)
-
 	for _, topic := range cfg.Topics {
-		go p.Pipe(topic)
+		go p.Pipe(topic, cfg.Input.Group)
 	}
 
 	quit := make(chan os.Signal, 1)
