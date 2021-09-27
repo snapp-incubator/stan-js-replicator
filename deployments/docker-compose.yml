@@ -16,6 +16,13 @@ services:
       - --cluster_id
       - snapp
 
+  nats-input:
+    image: nats
+    entrypoint: /nats-server
+    command: -p 4222
+    ports:
+      - 4224:4222
+
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
