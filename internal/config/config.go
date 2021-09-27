@@ -42,6 +42,7 @@ type (
 	// Input specifies the source of the data which is pushed into jectstream.
 	Input struct {
 		Type      `koanf:"type"`
+		Group     string
 		NATS      cmq.Config       `koanf:"nats"`
 		Streaming streaming.Config `koanf:"streaming"`
 	}
