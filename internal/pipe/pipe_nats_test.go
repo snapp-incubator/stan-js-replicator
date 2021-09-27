@@ -8,74 +8,71 @@ import (
 	"github.com/snapp-incubator/stan-js-replicator/v2/internal/cmq"
 	"github.com/snapp-incubator/stan-js-replicator/v2/internal/config"
 	"github.com/snapp-incubator/stan-js-replicator/v2/internal/pipe"
-	"github.com/snapp-incubator/stan-js-replicator/v2/internal/streaming"
 	"github.com/stretchr/testify/suite"
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 )
 
-const Timeout = 10 * time.Second
-
-type PipeSuite struct {
+type PipeNATSSuite struct {
 	suite.Suite
 
-	stan *streaming.Streaming
+	nats *cmq.CMQ
 	js   *cmq.CMQ
 
-	pipe *pipe.Pipe
+	pipe pipe.Pipe
 }
 
-func (suite *PipeSuite) SetupSuite() {
+func (suite *PipeNATSSuite) SetupSuite() {
 	cfg := config.New()
 	require := suite.Require()
 
-	stan, err := streaming.New(cfg.Input.Streaming, zap.NewNop())
+	nats, err := cmq.New(cfg.Input.NATS, zap.NewNop())
 	require.NoError(err)
 
 	js, err := cmq.New(cfg.Output, zap.NewNop())
 	require.NoError(err)
 
-	suite.pipe = pipe.New(js, stan, zap.NewNop(), trace.NewNoopTracerProvider().Tracer(""))
-	suite.stan = stan
+	suite.pipe = pipe.NewNATS(js, nats, zap.NewNop(), trace.NewNoopTracerProvider().Tracer(""))
+	suite.nats = nats
 	suite.js = js
 }
 
-func (suite *PipeSuite) TestWithMessage() {
+func (suite *PipeNATSSuite) TestWithMessage() {
 	require := suite.Require()
 
 	// nolint: exhaustivestruct
 	require.NoError(suite.js.Stream(&nats.StreamConfig{
-		Name:     "hello",
+		Name:     "hello.nats",
 		Storage:  nats.MemoryStorage,
 		MaxAge:   time.Minute,
-		Subjects: []string{"hello.world"},
+		Subjects: []string{"hello.world.nats"},
 	}))
 
-	suite.pipe.Pipe("hello.world")
+	suite.pipe.Pipe("hello.world.nats", "group")
 
-	sub, err := suite.js.JConn.SubscribeSync("hello.world", nats.AckExplicit(), nats.DeliverAll())
+	sub, err := suite.js.JConn.SubscribeSync("hello.world.nats", nats.AckExplicit(), nats.DeliverAll())
 	require.NoError(err)
 
 	defer func() {
 		_ = sub.Unsubscribe()
 	}()
 
-	require.NoError(suite.stan.Conn.Publish("hello.world", []byte("Hello World")))
+	require.NoError(suite.nats.Conn.Publish("hello.world.nats", []byte("Hello World")))
 
 	msg, err := sub.NextMsg(Timeout)
 	require.NoError(err)
 
-	require.Equal(msg.Subject, "hello.world")
+	require.Equal(msg.Subject, "hello.world.nats")
 	require.Equal(msg.Data, []byte("Hello World"))
 
 	meta, err := msg.Metadata()
 	require.NoError(err)
 
-	require.Equal(meta.Stream, "hello")
+	require.Equal(meta.Stream, "hello.nats")
 }
 
 func TestPipe(t *testing.T) {
 	t.Parallel()
 
-	suite.Run(t, new(PipeSuite))
+	suite.Run(t, new(PipeNATSSuite))
 }
