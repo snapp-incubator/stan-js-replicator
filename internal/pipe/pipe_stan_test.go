@@ -40,6 +40,7 @@ func (suite *PipeSTANSuite) SetupSuite() {
 	suite.js = js
 }
 
+// nolint: dupl
 func (suite *PipeSTANSuite) TestWithMessage() {
 	require := suite.Require()
 
