@@ -38,15 +38,13 @@ func NewSTAN(c *cmq.CMQ, s *streaming.Streaming, logger *zap.Logger, tracer trac
 // Pipe start piping messages from streaming to jetstream based on given topic.
 // its subscription on streaming isn't durable and it always start from 1 second behind.
 // the reason here is to reduce load on the streaming server as much as possible.
-func (p *STANPipe) Pipe(topic string) {
+func (p *STANPipe) Pipe(topic, group string) {
 	piped := NewPiped(topic)
 
-	if _, err := p.Streaming.Conn.QueueSubscribe(topic, p.Streaming.Group, func(imsg *stan.Msg) {
+	if _, err := p.Streaming.Conn.QueueSubscribe(topic, group, func(imsg *stan.Msg) {
 		defer func() {
 			_ = imsg.Ack()
 		}()
-
-		piped.TimeLag.Observe(time.Since(time.Unix(imsg.Timestamp, 0).Local()).Seconds())
 
 		ctx := context.Background()
 
