@@ -72,7 +72,7 @@ func (suite *PipeSTANSuite) TestWithMessage() {
 	meta, err := msg.Metadata()
 	require.NoError(err)
 
-	require.Equal(meta.Stream, "hello.stan")
+	require.Equal(meta.Stream, "hello-stan")
 }
 
 func TestSTANPipe(t *testing.T) {
