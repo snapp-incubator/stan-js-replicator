@@ -69,7 +69,7 @@ func (suite *PipeNATSSuite) TestWithMessage() {
 	meta, err := msg.Metadata()
 	require.NoError(err)
 
-	require.Equal(meta.Stream, "hello.nats")
+	require.Equal(meta.Stream, "hello-nats")
 }
 
 func TestPipe(t *testing.T) {
