@@ -43,7 +43,7 @@ func (suite *PipeNATSSuite) TestWithMessage() {
 
 	// nolint: exhaustivestruct
 	require.NoError(suite.js.Stream(&nats.StreamConfig{
-		Name:     "hello.nats",
+		Name:     "hello-nats",
 		Storage:  nats.MemoryStorage,
 		MaxAge:   time.Minute,
 		Subjects: []string{"hello.world.nats"},
