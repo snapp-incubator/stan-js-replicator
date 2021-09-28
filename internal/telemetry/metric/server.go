@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/snapp-incubator/stan-js-replicator/internal/telemetry/config"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/telemetry/config"
 	"go.uber.org/zap"
 )
 

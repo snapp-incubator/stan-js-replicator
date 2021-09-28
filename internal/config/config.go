@@ -11,27 +11,40 @@ import (
 	"github.com/knadh/koanf/providers/file"
 	"github.com/knadh/koanf/providers/structs"
 	"github.com/nats-io/nats.go"
-	"github.com/snapp-incubator/stan-js-replicator/internal/cmq"
-	"github.com/snapp-incubator/stan-js-replicator/internal/logger"
-	"github.com/snapp-incubator/stan-js-replicator/internal/streaming"
-	telemetry "github.com/snapp-incubator/stan-js-replicator/internal/telemetry/config"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/cmq"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/logger"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/streaming"
+	telemetry "github.com/snapp-incubator/stan-js-replicator/v2/internal/telemetry/config"
 )
 
 const (
 	// Prefix indicates environment variables prefix.
 	Prefix = "sjr_"
+
+	StreamingInput Type = "streaming"
+	NATSInput      Type = "nats"
 )
 
 type (
+	Type string
+
 	// Config holds all configurations.
 	Config struct {
 		Logger    logger.Config    `koanf:"logger"`
 		Telemetry telemetry.Config `koanf:"telemetry"`
-		NATS      cmq.Config       `koanf:"nats"`
-		Streaming streaming.Config `koanf:"streaming"`
+		Output    cmq.Config       `koanf:"output"`
+		Input     Input            `koanf:"input"`
 		Stream    Stream           `koanf:"stream"`
 		Channel   string           `koanf:"channel"`
 		Topics    []string         `koanf:"topics"`
+	}
+
+	// Input specifies the source of the data which is pushed into jectstream.
+	Input struct {
+		Type      `koanf:"type"`
+		Group     string
+		NATS      cmq.Config       `koanf:"nats"`
+		Streaming streaming.Config `koanf:"streaming"`
 	}
 
 	// Stream holds all the stream configuration, please check it with

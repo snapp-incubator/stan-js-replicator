@@ -3,7 +3,7 @@ package trace
 import (
 	"log"
 
-	"github.com/snapp-incubator/stan-js-replicator/internal/telemetry/config"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/telemetry/config"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/jaeger"
 	"go.opentelemetry.io/otel/propagation"

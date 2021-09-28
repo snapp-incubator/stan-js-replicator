@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/pyroscope-io/pyroscope/pkg/agent/profiler"
-	"github.com/snapp-incubator/stan-js-replicator/internal/telemetry/config"
+	"github.com/snapp-incubator/stan-js-replicator/v2/internal/telemetry/config"
 )
 
 func Start(cfg config.Profiler) {

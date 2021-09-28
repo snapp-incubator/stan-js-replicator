@@ -11,7 +11,7 @@ data:
       enabled: true
       address: ":8080"
     {{ with .Values.nats }}
-    nats:
+    output:
       {{ toYaml . | nindent 6 }}
     {{ end }}
     {{ with .Values.logger }}
@@ -22,8 +22,8 @@ data:
     telemetry:
       {{ toYaml . | nindent 6 }}
     {{ end }}
-    {{ with .Values.streaming }}
-    streaming:
+    {{ with .Values.input }}
+    input:
       {{ toYaml . | nindent 6 }}
     {{ end }}
     channel: {{ .Values.channel }}
