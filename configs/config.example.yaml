@@ -2,14 +2,17 @@
 monitoring:
   enabled: true
   address: ":8080"
-nats:
+output:
   url: "nats://127.0.0.1:4222"
 logger:
 telemetry:
-streaming:
-  url: "nats://127.0.0.1:4222"
+input:
   group: "sjr"
-  clientid: "snapp"
+  nats:
+    url: "nats://127.0.0.1:4222"
+  streaming:
+    url: "nats://127.0.0.1:4222"
+    clientid: "snapp"
 channel: "koochooloo"
 topics:
   - k.1

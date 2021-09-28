@@ -26,14 +26,16 @@ if you want to bind topics into different streams you need to run different inst
 monitoring:
   enabled: true
   address: ":8080"
-nats:
+output:
   url: "nats://127.0.0.1:4222"
 logger: {}
 telemetry: {}
-streaming:
-  url: "nats://127.0.0.1:4222"
+input:
+  type: "streaming"
   group: "sjr"
-  clientid: "snapp"
+  streaming:
+    url: "nats://127.0.0.1:4222"
+    clientid: "snapp"
 channel: "koochooloo"
 topics:
   - k.1
@@ -52,7 +54,7 @@ sjr has buitin support for pyroscope and you can use by enabling it throuth the 
 telemetry:
   profiler:
     enabled: true
-    address: http://127.0.0.1:4040 
+    address: http://127.0.0.1:4040
 ```
 
 ## Tracing with [OpneTelemetry](https://github.com/open-telemetry/opentelemetry-go)
