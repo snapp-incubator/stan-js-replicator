@@ -51,13 +51,15 @@ logger:
     tag: "saf"
     address: "127.0.0.1:9000"
 
-nats:
+input:
   url: "nats://nats:4222"
 
-streaming:
-  url: "nats://nats:4222"
-  clusterid: "snapp"
+output:
   group: "sjr"
+  type: "streaming"
+  streaming:
+    url: "nats://nats:4222"
+    clusterid: "snapp"
 
 telemetry:
   trace:
